@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 """Notepad-- : A very simple text editor."""
 
-import Tkinter as tk
-import tkFileDialog
+import sys
+if sys.version_info < (3,):
+    import Tkinter as tk
+    import tkFileDialog as filedialog
+else:
+    import tkinter as tk
+    from tkinter import filedialog
 
 def create_gui(root):
     """Set up the GUI and functionality."""
@@ -13,7 +18,7 @@ def create_gui(root):
     # Functionality for opening and saving files.
     def open_file():
         """Open a file"""
-        f = tkFileDialog.askopenfile()
+        f = filedialog.askopenfile()
         if f:
             textbox.delete(1.0, tk.END)
             textbox.insert(tk.END, f.read())
@@ -21,7 +26,7 @@ def create_gui(root):
 
     def save_file():
         """Save a file"""
-        f = tkFileDialog.asksaveasfile()
+        f = filedialog.asksaveasfile()
         if f:
             f.write(textbox.get(1.0, tk.END)[:-1])
             f.close()
